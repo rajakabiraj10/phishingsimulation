@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Awareness | INT Cybersecurity</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #184CA1;
+    --blue-dark: #0f3278;
+    --blue-light: rgba(24,76,161,0.12);
+    --blue-border: rgba(24,76,161,0.25);
+    --yellow: #FEE000;
+    --yellow-dim: rgba(254,224,0,0.1);
+    --red: #D71F27;
+    --red-dim: rgba(215,31,39,0.1);
+    --red-border: rgba(215,31,39,0.25);
+    --green: #059A82;
+    --green-dim: rgba(5,154,130,0.1);
+    --dark: #292C30;
+    --light-gray: #DDDDDB;
+    --white: #FFFFFF;
+    --bg: #f4f6fb;
+    --surface: #ffffff;
+    --border: rgba(41,44,48,0.1);
+    --text: #292C30;
+    --muted: #6b7280;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Instrument Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .banner {
+    background: var(--red);
+    padding: 10px 20px;
+    text-align: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: white;
+    animation: bannerIn 0.5s ease both;
+  }
+
+  @keyframes bannerIn {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .navbar {
+    background: var(--white);
+    border-bottom: 3px solid var(--blue);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(24,76,161,0.08);
+  }
+
+  .nav-brand {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-brand span {
+    color: var(--yellow);
+    background: var(--blue);
+    padding: 0 4px;
+    border-radius: 3px;
+  }
+
+  .nav-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    border: 1px solid var(--blue-border);
+    background: var(--blue-light);
+    padding: 5px 12px;
+    border-radius: 100px;
+  }
+
+  .hero-wrap {
+    background: var(--blue);
+    position: relative;
+    overflow: hidden;
+    padding: 70px 24px 80px;
+    text-align: center;
+  }
+
+  .hero-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 20px);
+    pointer-events: none;
+  }
+
+  .hero-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--yellow);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    animation: heroIn 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+  }
+
+  @keyframes heroIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(254,224,0,0.4);
+    background: rgba(254,224,0,0.1);
+    color: var(--yellow);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+
+  .badge-dot {
+    width: 6px; height: 6px;
+    background: var(--yellow);
+    border-radius: 50%;
+    animation: blink 1.2s ease infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .hero-icon { font-size: 4rem; display: block; margin-bottom: 20px; animation: iconBounce 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.4s both; }
+
+  @keyframes iconBounce {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  h1 .highlight { color: var(--yellow); }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 16px rgba(24,76,161,0.07);
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .stat { background: var(--white); padding: 28px 20px; text-align: center; }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--blue);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.4; }
+
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: var(--yellow);
+    border-radius: 2px;
+  }
+
+  .timeline { margin-bottom: 40px; animation: fadeUp 0.8s ease 0.3s both; }
+
+  .tl-item { display: flex; gap: 20px; position: relative; }
+
+  .tl-item:not(:last-child) .tl-line {
+    position: absolute;
+    left: 19px; top: 40px; bottom: 0;
+    width: 2px;
+    background: var(--blue-light);
+  }
+
+  .tl-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--white);
+    flex-shrink: 0;
+    position: relative; z-index: 1;
+    box-shadow: 0 4px 12px rgba(24,76,161,0.25);
+  }
+
+  .tl-content { padding: 8px 0 32px; }
+  .tl-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .tl-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+  .notice {
+    background: var(--yellow-dim);
+    border: 1px solid rgba(254,224,0,0.4);
+    border-left: 4px solid var(--yellow);
+    border-radius: 8px;
+    padding: 18px 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+    margin-bottom: 40px;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+
+  .notice-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+  .notice-text { font-size: 0.88rem; color: #7a6000; line-height: 1.6; }
+  .notice-text strong { color: #5a4500; }
+
+  .tips {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.8s ease 0.5s both;
+  }
+
+  .tip {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--blue);
+    border-radius: 8px;
+    padding: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(24,76,161,0.05);
+  }
+
+  .tip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(24,76,161,0.12); }
+  .tip:nth-child(2) { border-top-color: var(--green); }
+  .tip:nth-child(3) { border-top-color: var(--yellow); }
+  .tip:nth-child(4) { border-top-color: var(--red); }
+  .tip:nth-child(5) { border-top-color: var(--green); }
+  .tip:nth-child(6) { border-top-color: var(--yellow); }
+
+  .tip-emoji { font-size: 1.6rem; display: block; margin-bottom: 10px; }
+  .tip-title { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .tip-body { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+
+  .checklist {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 12px rgba(24,76,161,0.06);
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+
+  .checklist-header {
+    background: var(--blue);
+    padding: 16px 24px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--yellow);
+  }
+
+  .check-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .check-item:last-child { border-bottom: none; }
+  .check-item:hover { background: var(--blue-light); }
+
+  .check-icon {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--green-dim);
+    border: 2px solid var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; flex-shrink: 0; margin-top: 1px;
+    color: var(--green); font-weight: 700;
+  }
+
+  .check-label { font-size: 0.9rem; font-weight: 500; color: var(--dark); }
+  .check-sub { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+  .cta-box {
+    background: var(--blue);
+    border-radius: 12px;
+    padding: 40px 32px;
+    text-align: center;
+    position: relative; overflow: hidden;
+    animation: fadeUp 0.8s ease 0.7s both;
+    box-shadow: 0 8px 32px rgba(24,76,161,0.25);
+  }
+
+  .cta-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 20px);
+  }
+
+  .cta-box::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px; background: var(--yellow);
+  }
+
+  .cta-box h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--white); margin-bottom: 8px; position: relative; }
+  .cta-box p { font-size: 0.9rem; color: rgba(255,255,255,0.65); margin-bottom: 28px; line-height: 1.6; position: relative; }
+
+  .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 26px; border-radius: 6px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.03em;
+    text-decoration: none; cursor: pointer;
+    transition: all 0.2s; border: none;
+  }
+
+  .btn-primary { background: var(--yellow); color: var(--blue); }
+  .btn-primary:hover { background: #e6c900; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(254,224,0,0.3); }
+  .btn-ghost { background: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.2); }
+  .btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); }
+
+  .footer {
+    background: var(--white);
+    border-top: 3px solid var(--blue);
+    padding: 28px 24px;
+    text-align: center;
+    animation: fadeUp 0.8s ease 0.8s both;
+  }
+
+  .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--blue); margin-bottom: 6px; }
+  .footer-logo span { color: var(--yellow); background: var(--blue); padding: 0 4px; border-radius: 3px; }
+  .footer p { font-size: 0.75rem; color: var(--muted); line-height: 1.7; }
+  .footer a { color: var(--blue); text-decoration: none; font-weight: 500; }
+  .footer a:hover { color: var(--red); }
+
+  /* clues section */
+  .clues-box {
+    background: var(--white);
+    border: 2px solid var(--yellow);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(254,224,0,0.15);
+    animation: fadeUp 0.8s ease 0.65s both;
+  }
+
+  .clues-header {
+    background: var(--yellow);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .clues-header-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dark);
+  }
+
+  .clues-header-sub {
+    font-size: 0.75rem;
+    color: rgba(41,44,48,0.6);
+    font-weight: 400;
+    margin-left: auto;
+    font-style: italic;
+  }
+
+  .clue-item {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .clue-item:last-child { border-bottom: none; }
+
+  .clue-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+  }
+
+  .clue-trigger:hover { background: rgba(254,224,0,0.06); }
+
+  .clue-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--yellow);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem; font-weight: 800;
+    color: var(--dark);
+    flex-shrink: 0;
+  }
+
+  .clue-question {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--dark);
+    flex: 1;
+  }
+
+  .clue-arrow {
+    font-size: 0.75rem;
+    color: var(--muted);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .clue-item.open .clue-arrow { transform: rotate(180deg); }
+
+  .clue-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding: 0 24px 0 66px;
+    background: rgba(254,224,0,0.04);
+  }
+
+  .clue-item.open .clue-answer {
+    max-height: 200px;
+    padding: 0 24px 16px 66px;
+  }
+
+  .clue-answer-inner {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.65;
+    border-left: 3px solid var(--yellow);
+    padding-left: 14px;
+  }
+
+  .clue-highlight {
+    background: rgba(254,224,0,0.3);
+    color: var(--dark);
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'Syne', monospace;
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 540px) {
+    .tips { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+    h1 { font-size: 1.8rem; }
+    .navbar { padding: 14px 20px; }
+    .nav-tag { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">⚠ &nbsp; Controlled Phishing Simulation — INT Cybersecurity Practice &nbsp; ⚠</div>
+
+<div class="navbar">
+  <img src="data:image/png;base64,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" alt="INT Logo" style="height:48px;">
+  <div class="nav-tag">Security Awareness Training</div>
+</div>
+
+<div class="hero-wrap">
+  <div class="hero-inner">
+    <div class="badge"><span class="badge-dot"></span>Phishing Simulation Alert</div>
+    <span class="hero-icon">🎣</span>
+    <h1>You just got <span class="highlight">phished.</span><br>The good news? It was us.</h1>
+    <p class="hero-sub">This was a controlled exercise run by the INT Cybersecurity team. No real credentials were captured. But in a real attack — they would have been.</p>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="stats">
+    <div class="stat"><span class="stat-num">91%</span><div class="stat-desc">of cyberattacks begin with a phishing email</div></div>
+    <div class="stat"><span class="stat-num">17s</span><div class="stat-desc">average time before an employee clicks a phishing link</div></div>
+    <div class="stat"><span class="stat-num">3.4B</span><div class="stat-desc">phishing emails are sent every single day globally</div></div>
+  </div>
+
+  <div class="section-label">What Just Happened</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot">01</div>
+      <div class="tl-content">
+        <div class="tl-title">You received a simulated phishing email</div>
+        <div class="tl-desc">The INT Security team sent an email impersonating Google Workspace IT, warning your password was about to expire in 24 hours.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot">02</div>
+      <div class="tl-content">
+        <div class="tl-title">You clicked the link inside the email</div>
+        <div class="tl-desc">The urgency tactic worked — "reset now or get locked out." You clicked without verifying the sender domain or destination URL.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-line"></div>
+      <div class="tl-dot">03</div>
+      <div class="tl-content">
+        <div class="tl-title">You landed on a fake Google login page</div>
+        <div class="tl-desc">The page looked exactly like Google Workspace. In a real attack, any credentials entered would now belong to the attacker.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">04</div>
+      <div class="tl-content">
+        <div class="tl-title">Your response has been logged — safely</div>
+        <div class="tl-desc">This is a fully controlled exercise. No real data was stored or shared. Results are used only for internal awareness reporting.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice">
+    <span class="notice-icon">💡</span>
+    <div class="notice-text"><strong>This is not a disciplinary action.</strong> The goal is to help every INT team member recognize real threats before attackers can exploit them. You are now significantly better prepared than you were an hour ago.</div>
+  </div>
+
+  <div class="section-label">Phishing Red Flags to Remember</div>
+  <div class="tips">
+    <div class="tip"><span class="tip-emoji">🔍</span><div class="tip-title">Always verify the sender domain</div><div class="tip-body">Attackers use look-alike domains. intglobal-security.com is NOT the same as intglobal.com. Always check carefully.</div></div>
+    <div class="tip"><span class="tip-emoji">⚡</span><div class="tip-title">Urgency is a classic red flag</div><div class="tip-body">"Act within 24 hours or lose access" is a pressure tactic. Slow down — legitimate IT never rushes you like this.</div></div>
+    <div class="tip"><span class="tip-emoji">🔗</span><div class="tip-title">Hover before you click any link</div><div class="tip-body">Always hover over links to preview the real destination URL. If anything looks off — don't click it.</div></div>
+    <div class="tip"><span class="tip-emoji">🔐</span><div class="tip-title">Never enter credentials via email</div><div class="tip-body">Legitimate IT systems never ask for your password through an email link. Go directly to the official portal instead.</div></div>
+    <div class="tip"><span class="tip-emoji">📎</span><div class="tip-title">Treat all attachments with suspicion</div><div class="tip-body">Unexpected attachments — even from known senders — can carry malware. Always verify before opening anything.</div></div>
+    <div class="tip"><span class="tip-emoji">📣</span><div class="tip-title">Report — don't just delete</div><div class="tip-body">If you suspect phishing, report it to the security team immediately. Deleting protects only you. Reporting protects everyone.</div></div>
+  </div>
+
+  <div class="section-label">Could You Have Spotted It?</div>
+  <div class="clues-box">
+    <div class="clues-header">
+      <span>🔎</span>
+      <span class="clues-header-text">Hidden Clues in the Phishing Email</span>
+      <span class="clues-header-sub">Click each to reveal</span>
+    </div>
+
+    <div class="clue-item">
+      <button class="clue-trigger" onclick="toggleClue(this)">
+        <div class="clue-num">1</div>
+        <div class="clue-question">The sender domain was not from Google or INT</div>
+        <span class="clue-arrow">▼</span>
+      </button>
+      <div class="clue-answer">
+        <div class="clue-answer-inner">
+          The email came from <span class="clue-highlight">it-support@intglobal.com</span> — not from <span class="clue-highlight">google.com</span> or <span class="clue-highlight">workspace.google.com</span>. Google never sends password expiry emails from third-party domains. Always check the full sender address, not just the display name.
+        </div>
+      </div>
+    </div>
+
+    <div class="clue-item">
+      <button class="clue-trigger" onclick="toggleClue(this)">
+        <div class="clue-num">2</div>
+        <div class="clue-question">The urgency language was exaggerated and unnatural</div>
+        <span class="clue-arrow">▼</span>
+      </button>
+      <div class="clue-answer">
+        <div class="clue-answer-inner">
+          The email used phrases like <span class="clue-highlight">"expires in 24:00:00"</span> and <span class="clue-highlight">"account will be suspended"</span>. Google's real password policy emails are calm and give 7+ days notice — they never show a ticking countdown or threaten immediate suspension.
+        </div>
+      </div>
+    </div>
+
+    <div class="clue-item">
+      <button class="clue-trigger" onclick="toggleClue(this)">
+        <div class="clue-num">3</div>
+        <div class="clue-question">The link URL did not point to google.com</div>
+        <span class="clue-arrow">▼</span>
+      </button>
+      <div class="clue-answer">
+        <div class="clue-answer-inner">
+          Hovering over the "Reset My Password" button would have revealed the link pointed to <span class="clue-highlight">http://10.0.12.99</span> — a raw IP address, not a Google domain. Legitimate Google links always go to <span class="clue-highlight">accounts.google.com</span>.
+        </div>
+      </div>
+    </div>
+
+    <div class="clue-item">
+      <button class="clue-trigger" onclick="toggleClue(this)">
+        <div class="clue-num">4</div>
+        <div class="clue-question">The landing page had no HTTPS / padlock icon</div>
+        <span class="clue-arrow">▼</span>
+      </button>
+      <div class="clue-answer">
+        <div class="clue-answer-inner">
+          The fake login page used <span class="clue-highlight">http://</span> not <span class="clue-highlight">https://</span>. Your browser would show <span class="clue-highlight">"Not Secure"</span> in the address bar. Google never asks for credentials on an unencrypted page. Always look for the padlock before entering any password.
+        </div>
+      </div>
+    </div>
+
+    <div class="clue-item">
+      <button class="clue-trigger" onclick="toggleClue(this)">
+        <div class="clue-num">5</div>
+        <div class="clue-question">Google doesn't ask for your current password to reset it</div>
+        <span class="clue-arrow">▼</span>
+      </button>
+      <div class="clue-answer">
+        <div class="clue-answer-inner">
+          The fake reset page asked for your <span class="clue-highlight">current password</span> before setting a new one. Google's real password reset flow uses identity verification (2FA, recovery email, or phone) — it never asks you to type your old password on an external page.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-label">Your Action Checklist</div>
+  <div class="checklist">
+    <div class="checklist-header">// Complete these steps now</div>
+    <div class="check-item"><div class="check-icon">✓</div><div><div class="check-label">Change your Google Workspace password</div><div class="check-sub">Go directly to myaccount.google.com — never via an email link</div></div></div>
+    <div class="check-item"><div class="check-icon">✓</div><div><div class="check-label">Enable 2-Step Verification on your account</div><div class="check-sub">2FA stops attackers even if they already have your password</div></div></div>
+    <div class="check-item"><div class="check-icon">✓</div><div><div class="check-label">Review your recent account activity</div><div class="check-sub">myaccount.google.com → Security → Recent sign-in activity</div></div></div>
+    <div class="check-item"><div class="check-icon">✓</div><div><div class="check-label">Report any real suspicious emails to the security team</div><div class="check-sub">Forward to security@intglobal.com with full email headers</div></div></div>
+  </div>
+
+  <div class="cta-box">
+    <h2>Spotted a real phishing email?</h2>
+    <p>Don't delete it — report it immediately to the INT Cybersecurity team.<br>Your report could protect the entire organization from a real breach.</p>
+    <div class="btn-group">
+      <a href="mailto:security@intglobal.com?subject=Phishing%20Report&body=I%20would%20like%20to%20report%20a%20suspicious%20email." class="btn btn-primary">📧 Report Phishing Email</a>
+      <a href="mailto:it-support@intglobal.com" class="btn btn-ghost">💬 Contact IT Support</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div style="display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:8px;"><img src="data:image/png;base64,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" alt="INT Logo" style="height:40px;"><span style="font-family:Syne,sans-serif;font-weight:800;font-size:1rem;color:var(--blue);">Cybersecurity Practice</span></div>
+  <p>Prime Infoserv Pvt. Ltd. · Kolkata, India</p>
+  <p>Questions? <a href="mailto:security@intglobal.com">security@intglobal.com</a></p>
+</div>
+
+<script>
+function toggleClue(btn) {
+  const item = btn.closest('.clue-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.clue-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
